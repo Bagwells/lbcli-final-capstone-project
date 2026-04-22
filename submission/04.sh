@@ -6,5 +6,5 @@ rawtx=$(bitcoin-cli -signet getrawtransaction $tx)
 
 decodedtx=$(bitcoin-cli -signet decoderawtransaction $rawtx)
 
-public_key=$(echo $decodedtx | jq -r '.vin[0].txinwitness[1]')
+public_key=$(echo "$decodedtx" | jq -r '.vin[0].txinwitness[1]')
 echo "$public_key"
