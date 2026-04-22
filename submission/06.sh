@@ -4,4 +4,5 @@ block=243821
 
 blockhash=$(bitcoin-cli -signet getblockhash $block)
 
-bitcoin-cli -signet getblock $blockhash 2 | jq -r '.tx[1].vin[0].txid'
+
+bitcoin-cli -signet getblock "$blockhash" 2 | jq -r '.tx[] | select(any(.vin[]?; has("sequence") and .sequence < 4294967294)) | .txid'
