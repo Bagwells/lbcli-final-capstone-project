@@ -13,5 +13,5 @@ input_btc=$(bitcoin-cli -signet getrawtransaction "$prev_txid" 1 | jq -r ".vout[
 output_btc=$(echo $decodedtx | jq -r '[.vout[].value] | add')
 
 
-fee_satoshi=$(awk -v in="$input_btc" -v out="$output_btc" 'BEGIN { printf "%.0f\n", (in-out)*100000000 }')
+fee_satoshi=$(awk -v input="$input_btc" -v output="$output_btc" 'BEGIN { printf "%.0f\n", (input-output)*100000000 }')
 echo "$fee_satoshi"
